@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
@@ -11,7 +11,7 @@ import Input from "@/components/ui/Input";
 import Card from "@/components/ui/Card";
 import Loader from "@/components/ui/Loader";
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const next = searchParams.get("next") ?? "/lists";
@@ -91,5 +91,21 @@ export default function LoginPage() {
         </Link>
       </p>
     </Card>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <Card className="shadow-card-hover border-surface-200/60">
+          <div className="flex justify-center py-8">
+            <Loader />
+          </div>
+        </Card>
+      }
+    >
+      <LoginForm />
+    </Suspense>
   );
 }
