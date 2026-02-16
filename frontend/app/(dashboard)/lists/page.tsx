@@ -28,7 +28,6 @@ import { ListCardSkeleton } from "@/components/ui/Skeleton";
 import ListCard from "@/components/wishlist/ListCard";
 import SortableListCard from "@/components/wishlist/SortableListCard";
 import DeleteListModal from "@/components/wishlist/DeleteListModal";
-import FloatingGifts from "@/components/ui/FloatingGifts";
 
 export default function ListsPage() {
   const { user } = useAuth();
@@ -56,6 +55,20 @@ export default function ListsPage() {
   const owned = user ? lists.filter((l) => l.owner_id === user.id) : [];
   const shared = user ? lists.filter((l) => l.owner_id !== user.id) : [];
   const showSections = shared.length > 0;
+
+  const totalLists = lists.length;
+  const ownedCount = owned.length;
+  const sharedCount = shared.length;
+  const { itemsTotal, itemsPurchased } = lists.reduce(
+    (acc, l) => {
+      const items = l.items_count ?? 0;
+      const purchased = l.purchased_count ?? 0;
+      acc.itemsTotal += items;
+      acc.itemsPurchased += purchased;
+      return acc;
+    },
+    { itemsTotal: 0, itemsPurchased: 0 }
+  );
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
@@ -112,12 +125,58 @@ export default function ListsPage() {
 
   return (
     <div className="relative min-h-[70vh]">
-      {lists.length > 0 && <FloatingGifts />}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 relative z-10">
-        <h1 className="text-2xl font-semibold text-surface-900">{t("lists.myLists")}</h1>
-        <Link href="/lists/new">
-          <Button>{t("lists.newList")}</Button>
-        </Link>
+      <div className="flex flex-col gap-4 mb-6 relative z-10">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <h1 className="text-2xl font-semibold text-surface-900">{t("lists.myLists")}</h1>
+            <p className="text-sm text-surface-500 mt-0.5">{t("lists.subtitle")}</p>
+          </div>
+          <Link href="/lists/new" className="shrink-0">
+            <Button className="shadow-soft hover:shadow-card-hover">
+              <span className="mr-1.5">＋</span>
+              {t("lists.newList")}
+            </Button>
+          </Link>
+        </div>
+
+        {totalLists > 0 && (
+          <Card className="bg-gradient-to-r from-brand-50/80 via-amber-50/70 to-surface-50/80 border border-surface-100/60 shadow-sm">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-8 text-xs sm:text-sm text-surface-600">
+              <div className="flex items-center gap-2">
+                <div className="h-8 w-8 rounded-full bg-white/80 shadow-sm flex items-center justify-center text-base">
+                  🎁
+                </div>
+                <div>
+                  <p className="text-[11px] uppercase tracking-wide text-surface-400">
+                    {t("lists.statsOwned")}
+                  </p>
+                  <p className="text-sm font-semibold text-surface-900">
+                    {ownedCount}
+                    {sharedCount > 0 && (
+                      <span className="ml-1 text-xs font-normal text-surface-500">
+                        · {t("lists.statsShared")}: {sharedCount}
+                      </span>
+                    )}
+                  </p>
+                </div>
+              </div>
+              <div className="hidden sm:block h-9 w-px bg-surface-200/80" />
+              <div className="flex items-center gap-2">
+                <div className="h-8 w-8 rounded-full bg-white/80 shadow-sm flex items-center justify-center text-base">
+                  📦
+                </div>
+                <div>
+                  <p className="text-[11px] uppercase tracking-wide text-surface-400">
+                    {t("lists.statsProgress")}
+                  </p>
+                  <p className="text-sm font-semibold text-surface-900 tabular-nums">
+                    {itemsPurchased}/{itemsTotal}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Card>
+        )}
       </div>
       {lists.length === 0 ? (
         <Card>

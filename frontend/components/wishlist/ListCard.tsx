@@ -28,7 +28,7 @@ export default function ListCard({
   const done = list.purchased_count || 0;
   const pct = total > 0 ? Math.round((done / total) * 100) : 0;
   const borderClass =
-    pct >= 100 ? "border-l-emerald-500" : pct > 0 ? "border-l-amber-500" : "border-l-surface-300";
+    pct >= 100 ? "border-l-emerald-500" : pct > 0 ? "border-l-amber-500" : "border-l-surface-200";
   const dueStr = formatDueDate(list.due_date);
 
   function handleDelete(e: React.MouseEvent) {
@@ -42,11 +42,17 @@ export default function ListCard({
     <div className="h-full">
       <Link href={`/lists/${list.id}`} className="block h-full">
         <Card
-          className={`block hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-300 cursor-pointer h-full border-l-4 ${borderClass}`}
+          className={`block relative overflow-hidden hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-300 cursor-pointer h-full border-l-4 ${borderClass}`}
           padding="md"
         >
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3 min-h-[2.25rem]">
-            <h2 className="font-semibold text-surface-900 truncate min-w-0 flex-1 order-1 sm:order-none">{list.title}</h2>
+          <div className="pointer-events-none absolute inset-x-0 -top-10 h-20 bg-gradient-to-br from-brand-50/60 via-transparent to-amber-50/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3 min-h-[2.25rem] relative">
+            <div className="flex items-center gap-2 min-w-0 flex-1 order-1 sm:order-none">
+              <div className="h-8 w-8 rounded-xl bg-surface-100 flex items-center justify-center text-sm text-brand-500 shrink-0">
+                🎁
+              </div>
+              <h2 className="font-semibold text-surface-900 truncate">{list.title}</h2>
+            </div>
             {isOwner ? (
               <div className="flex items-center gap-1.5 shrink-0 order-2 sm:order-none" onClick={(e) => e.stopPropagation()}>
                 <Link
