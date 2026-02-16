@@ -13,4 +13,5 @@ COPY . .
 EXPOSE 8000
 
 # Uygulama'yı başlat
-CMD uvicorn app.main:app --host 0.0.0.0 --port $PORT
+# Railway otomatik olarak PORT environment variable'ını sağlar
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
