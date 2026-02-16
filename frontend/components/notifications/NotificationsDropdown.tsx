@@ -123,7 +123,7 @@ export default function NotificationsDropdown() {
         )}
       </button>
       {open && (
-        <div className="absolute right-0 top-full mt-1 w-80 max-h-[70vh] overflow-auto bg-white rounded-xl shadow-lg border border-surface-200 py-2 z-50">
+        <div className="absolute right-0 top-full mt-1 w-[calc(100vw-2rem)] max-w-80 sm:max-w-80 max-h-[70vh] overflow-auto bg-white rounded-xl shadow-lg border border-surface-200 py-2 z-50">
           <div className="flex items-center justify-between px-3 pb-2 border-b border-surface-100">
             <span className="font-medium text-surface-900">{t("nav.notifications")}</span>
             {unreadCount > 0 && (

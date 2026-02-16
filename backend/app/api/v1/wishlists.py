@@ -325,16 +325,67 @@ async def delete_wishlist(
             affected_user_ids.add(i.reserved_by_id)
         if i.contributed_by_id and str(i.contributed_by_id) != str(current_user.id):
             affected_user_ids.add(i.contributed_by_id)
+    
+    # Load contributions before delete (cascade will remove them)
+    # Per-user: total paid per currency, has any pledged
+    user_paid_by_currency: dict[UUID, dict[str, float]] = {}  # {user_id: {currency: total_amount}}
+    user_pledged_only: set[UUID] = set()
     if item_ids:
-        contribs = await db.execute(
+        contribs_result = await db.execute(
+            select(ItemContribution.user_id, ItemContribution.amount, ItemContribution.status, WishlistItem.currency).join(
+                WishlistItem, ItemContribution.item_id == WishlistItem.id
+            ).where(
+                ItemContribution.item_id.in_(item_ids),
+                ItemContribution.user_id != current_user.id,
+            )
+        )
+        contribs = list(contribs_result.all())
+        for c in contribs:
+            uid = c.user_id
+            if str(uid) == str(current_user.id):
+                continue
+            amt = float(c.amount)
+            currency = (c.currency or "").strip()
+            if getattr(c, "status", None) == "paid":
+                if uid not in user_paid_by_currency:
+                    user_paid_by_currency[uid] = {}
+                user_paid_by_currency[uid][currency] = user_paid_by_currency[uid].get(currency, 0) + amt
+            else:
+                user_pledged_only.add(uid)
+        # Also add contributors to affected_user_ids for wishlist_deleted notification
+        contribs_user_ids = await db.execute(
             select(ItemContribution.user_id).where(
                 ItemContribution.item_id.in_(item_ids),
                 ItemContribution.user_id != current_user.id,
             )
         )
-        for row in contribs.all():
+        for row in contribs_user_ids.all():
             affected_user_ids.add(row.user_id)
+    
+    # Notify contributors who paid (refund) - per currency
+    for uid, currency_totals in user_paid_by_currency.items():
+        for currency, total_paid in currency_totals.items():
+            if total_paid <= 0:
+                continue
+            db.add(
+                Notification(
+                    user_id=uid,
+                    kind="refund_paid",
+                    title="Refund",
+                    body=f'You were refunded {total_paid:.2f} {currency or ""}. The wishlist was deleted by the owner.',
+                    payload={
+                        "amount": round(total_paid, 2),
+                        "currency": currency or "",
+                        "list_title": title_saved,
+                    },
+                )
+            )
+    
+    # Notify contributors who only pledged, shared users, and others
     for uid in affected_user_ids:
+        # Skip if already notified about refund
+        if uid in user_paid_by_currency:
+            continue
         n = Notification(
             user_id=uid,
             kind="wishlist_deleted",
