@@ -200,6 +200,7 @@ export interface LinkMetadata {
   title: string | null;
   image_url: string | null;
   price: number | null;
+  currency: string | null;
 }
 
 export const metadataApi = {

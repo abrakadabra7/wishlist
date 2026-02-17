@@ -65,6 +65,9 @@ export default function ItemForm({
       if (data.price != null && !Number.isNaN(Number(data.price))) {
         setPrice(Number(data.price).toFixed(2));
       }
+      if (data.currency && CURRENCIES.some((c) => c.code === data.currency)) {
+        setCurrency(data.currency);
+      }
     } catch {
       setFetchError(t("items.fetchFailed"));
     } finally {
