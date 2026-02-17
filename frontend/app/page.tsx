@@ -6,16 +6,15 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useTheme } from "@/contexts/ThemeContext";
 import Button from "@/components/ui/Button";
 import Loader from "@/components/ui/Loader";
 import Logo from "@/components/layout/Logo";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 export default function HomePage() {
   const router = useRouter();
   const { user, loading } = useAuth();
   const { t, locale, setLocale } = useLanguage();
-  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     if (!loading && user) router.replace("/lists");
@@ -43,22 +42,6 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto px-3 py-3 flex flex-wrap items-center justify-between gap-2 sm:flex-nowrap sm:px-4 sm:py-4 sm:gap-0">
           <Logo href="/" size="lg" className="shrink-0" />
           <div className="flex flex-wrap items-center justify-end gap-1.5 sm:gap-3">
-            <button
-              type="button"
-              onClick={toggleTheme}
-              className="p-2 rounded-lg text-surface-600 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors theme-transition"
-              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              {theme === "dark" ? (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-                </svg>
-              ) : (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
-                </svg>
-              )}
-            </button>
             <div className="flex items-center gap-0.5 rounded-lg border border-surface-200 dark:border-surface-600 bg-surface-50/80 dark:bg-surface-800/80 p-0.5 sm:gap-1">
               <button
                 type="button"
@@ -87,6 +70,7 @@ export default function HomePage() {
                 <Button size="sm" className="text-xs sm:text-sm bg-gradient-brand hover:opacity-95 shadow-soft border-0">{t("nav.signUp")}</Button>
               </Link>
             </div>
+            <ThemeToggle />
           </div>
         </div>
       </header>
