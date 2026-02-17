@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -136,35 +137,41 @@ export default function HomePage() {
           <section className="flex-1 w-full max-w-md lg:max-w-lg">
             <div className="relative">
               {/* Main big card */}
-              <div className="hero-card-main rounded-3xl bg-white/95 shadow-2xl border border-surface-100/80 p-4 sm:p-5 backdrop-blur-md">
+              <div className="hero-card-main rounded-3xl bg-white/95 dark:bg-white shadow-2xl border border-surface-200/80 dark:border-surface-300/60 p-4 sm:p-5 backdrop-blur-md theme-transition">
                 <div className="flex items-start gap-3">
-                  <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-2xl bg-gradient-to-br from-sky-100 to-sky-300 flex items-center justify-center text-2xl">
-                    🎧
+                  <div className="relative h-16 w-16 sm:h-20 sm:w-20 rounded-2xl overflow-hidden bg-surface-100 dark:bg-surface-200 flex-shrink-0">
+                    <Image
+                      src="/hero-card.avif"
+                      alt=""
+                      fill
+                      className="object-cover"
+                      sizes="80px"
+                    />
                   </div>
-                  <div className="flex-1 space-y-1.5">
+                  <div className="flex-1 space-y-1.5 min-w-0">
                     <div className="flex items-center justify-between gap-2">
                       <div>
-                        <p className="text-xs font-medium uppercase tracking-wide text-surface-400 dark:text-surface-400 theme-transition">
+                        <p className="text-xs font-medium uppercase tracking-wide text-surface-600 dark:text-surface-600 theme-transition">
                           Wishlist · Пример
                         </p>
-                        <h2 className="text-base sm:text-lg font-semibold text-surface-900 dark:text-surface-100 theme-transition">
+                        <h2 className="text-base sm:text-lg font-semibold text-surface-900 dark:text-surface-900 theme-transition">
                           AirPods Pro
                         </h2>
                       </div>
-                      <span className="inline-flex items-center rounded-full bg-emerald-50 text-emerald-700 text-xs font-medium px-2 py-1">
+                      <span className="inline-flex items-center rounded-full bg-emerald-50 dark:bg-emerald-100 text-emerald-800 dark:text-emerald-900 text-xs font-medium px-2 py-1 theme-transition">
                         {locale === "ru" ? "Зарезервировано" : "Reserved"}
                       </span>
                     </div>
-                    <p className="text-xs text-surface-500 dark:text-surface-400 theme-transition">
+                    <p className="text-xs text-surface-700 dark:text-surface-700 theme-transition">
                       {locale === "ru"
                         ? "Друзья уже забронировали этот подарок."
                         : "Friends have already reserved this gift for you."}
                     </p>
                     <div className="mt-2 space-y-1">
-                      <div className="h-2 rounded-full bg-surface-100 overflow-hidden">
+                      <div className="h-2 rounded-full bg-surface-200 dark:bg-surface-300 overflow-hidden theme-transition">
                         <div className="h-full w-3/4 rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500" />
                       </div>
-                      <div className="flex justify-between text-[11px] text-surface-500 dark:text-surface-400 theme-transition">
+                      <div className="flex justify-between text-[11px] text-surface-700 dark:text-surface-700 font-medium theme-transition">
                         <span>{locale === "ru" ? "Оплачено" : "Paid"} · 28 000 ₽</span>
                         <span>42 000 ₽</span>
                       </div>
@@ -174,32 +181,38 @@ export default function HomePage() {
               </div>
 
               {/* Secondary card on the right */}
-              <div className="hero-card-secondary absolute -right-4 sm:-right-10 -bottom-10 sm:-bottom-12 w-40 sm:w-48 rounded-2xl bg-white shadow-xl border border-surface-100/80 p-3 space-y-2">
+              <div className="hero-card-secondary absolute -right-4 sm:-right-10 -bottom-10 sm:-bottom-12 w-40 sm:w-48 rounded-2xl bg-white dark:bg-white shadow-xl border border-surface-200/80 dark:border-surface-300/60 p-3 space-y-2 theme-transition">
                 <div className="flex items-center gap-2">
-                  <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-indigo-100 to-indigo-300 flex items-center justify-center text-lg">
-                    📱
+                  <div className="relative h-10 w-10 rounded-xl overflow-hidden bg-surface-100 dark:bg-surface-200 flex-shrink-0">
+                    <Image
+                      src="/hero-phone.avif"
+                      alt=""
+                      fill
+                      className="object-cover"
+                      sizes="40px"
+                    />
                   </div>
-                  <div className="flex-1">
-                    <p className="text-xs font-medium text-surface-900 dark:text-surface-100 theme-transition">iPhone 13</p>
-                    <p className="text-[11px] text-surface-500 dark:text-surface-400 theme-transition">80 000 ₽</p>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-medium text-surface-900 dark:text-surface-900 theme-transition">iPhone 13</p>
+                    <p className="text-[11px] text-surface-700 dark:text-surface-700 theme-transition">80 000 ₽</p>
                   </div>
                 </div>
-                <div className="h-1.5 rounded-full bg-surface-100 overflow-hidden">
+                <div className="h-1.5 rounded-full bg-surface-200 dark:bg-surface-300 overflow-hidden theme-transition">
                   <div className="h-full w-1/2 rounded-full bg-gradient-to-r from-amber-400 to-amber-500" />
                 </div>
                 <div className="flex gap-1 mt-1">
                   <span className="inline-flex-1 inline-flex justify-center items-center rounded-full bg-brand-500 text-white text-[10px] px-2 py-1">
                     {locale === "ru" ? "Скинуться" : "Chip in"}
                   </span>
-                  <span className="inline-flex justify-center items-center rounded-full bg-surface-100 dark:bg-surface-700 text-surface-700 dark:text-surface-300 text-[10px] px-2 py-1 theme-transition">
+                  <span className="inline-flex justify-center items-center rounded-full bg-surface-200 dark:bg-surface-300 text-surface-800 dark:text-surface-800 text-[10px] px-2 py-1 theme-transition">
                     {locale === "ru" ? "Забронировать" : "Reserve"}
                   </span>
                 </div>
               </div>
 
               {/* How it works mini-steps */}
-              <div className="hidden sm:flex hero-card-steps absolute -left-6 -bottom-14 bg-white/90 border border-surface-100 rounded-2xl shadow-lg px-3 py-2.5 items-center gap-3">
-                <div className="flex flex-col gap-1 text-[11px] text-surface-600 dark:text-surface-300 theme-transition">
+              <div className="hidden sm:flex hero-card-steps absolute -left-6 -bottom-14 bg-white dark:bg-white/95 border border-surface-200/80 dark:border-surface-300/60 rounded-2xl shadow-lg px-3 py-2.5 items-center gap-3 theme-transition">
+                <div className="flex flex-col gap-1 text-[11px] text-surface-800 dark:text-surface-800 font-medium theme-transition">
                   <div className="flex items-center gap-1.5">
                     <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-brand-500 text-white text-[9px]">
                       1
