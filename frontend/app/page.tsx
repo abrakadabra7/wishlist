@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -123,13 +122,11 @@ export default function HomePage() {
               {/* Main big card */}
               <div className="hero-card-main rounded-3xl bg-white/95 dark:bg-white shadow-2xl border border-surface-200/80 dark:border-surface-300/60 p-4 sm:p-5 backdrop-blur-md theme-transition">
                 <div className="flex items-start gap-3">
-                  <div className="relative h-16 w-16 sm:h-20 sm:w-20 rounded-2xl overflow-hidden bg-surface-100 dark:bg-surface-200 flex-shrink-0">
-                    <Image
+                  <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-2xl overflow-hidden bg-surface-100 dark:bg-surface-200 flex-shrink-0">
+                    <img
                       src="/hero-card.avif"
                       alt=""
-                      fill
-                      className="object-cover"
-                      sizes="80px"
+                      className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="flex-1 space-y-1.5 min-w-0">
@@ -167,13 +164,11 @@ export default function HomePage() {
               {/* Secondary card on the right */}
               <div className="hero-card-secondary absolute -right-4 sm:-right-10 -bottom-10 sm:-bottom-12 w-40 sm:w-48 rounded-2xl bg-white dark:bg-white shadow-xl border border-surface-200/80 dark:border-surface-300/60 p-3 space-y-2 theme-transition">
                 <div className="flex items-center gap-2">
-                  <div className="relative h-10 w-10 rounded-xl overflow-hidden bg-surface-100 dark:bg-surface-200 flex-shrink-0">
-                    <Image
+                  <div className="h-10 w-10 rounded-xl overflow-hidden bg-surface-100 dark:bg-surface-200 flex-shrink-0">
+                    <img
                       src="/hero-phone.avif"
                       alt=""
-                      fill
-                      className="object-cover"
-                      sizes="40px"
+                      className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="flex-1 min-w-0">
