@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class",
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -70,6 +71,7 @@ const config: Config = {
       backgroundImage: {
         "gradient-hero": "linear-gradient(135deg, #fdf8f6 0%, #f9ede8 40%, #f5f5f4 100%)",
         "gradient-brand": "linear-gradient(135deg, #b86244 0%, #cc7a5c 100%)",
+        "gradient-hero-dark": "linear-gradient(135deg, #1c1917 0%, #292524 50%, #1a1513 100%)",
       },
     },
   },

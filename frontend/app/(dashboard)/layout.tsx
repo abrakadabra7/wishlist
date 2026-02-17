@@ -32,7 +32,7 @@ export default function DashboardLayout({
   if (!user) return null;
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-hero pb-safe">
+    <div className="min-h-screen flex flex-col bg-gradient-hero dark:bg-gradient-hero-dark pb-safe theme-transition">
       <Header />
       <main className="flex-1 mx-auto w-full max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
         {children}

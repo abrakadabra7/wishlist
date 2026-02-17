@@ -7,14 +7,23 @@
   --foreground: #1c1917;
 }
 
+.dark {
+  --background: #1c1917;
+  --foreground: #e7e5e4;
+  --foreground-muted: #a8a29e;
+  --foreground-subtle: #d6d3d1;
+}
+
 html {
   scroll-behavior: smooth;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
   @apply font-sans;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
@@ -27,6 +36,16 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+  .theme-transition {
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+}
+
+.dark .text-muted {
+  color: var(--foreground-muted);
+}
+.dark .text-subtle {
+  color: var(--foreground-subtle);
 }
 
 @keyframes fadeIn {
@@ -42,7 +61,7 @@ body {
 
 /* Focus ring for accessibility */
 *:focus-visible {
-  @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-surface-50;
+  @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-surface-50 dark:ring-offset-surface-800;
 }
 
 /* Fancy metallic button (variant=fancy) */

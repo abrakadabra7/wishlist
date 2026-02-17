@@ -22,8 +22,8 @@ export default function Card({
   return (
     <div
       className={`
-        rounded-2xl bg-white border border-surface-200/60 shadow-card
-        transition-shadow duration-300
+        rounded-2xl bg-white dark:bg-surface-800 border border-surface-200/60 dark:border-surface-600/60 shadow-card dark:shadow-none
+        theme-transition
         ${paddingMap[padding]}
         ${className}
       `}
@@ -51,6 +51,6 @@ export function CardTitle({
   ...props
 }: HTMLAttributes<HTMLHeadingElement>) {
   return (
-    <h3 className={`text-lg font-semibold text-surface-900 ${className}`} {...props} />
+    <h3 className={`text-lg font-semibold text-surface-900 dark:text-surface-100 ${className}`} {...props} />
   );
 }

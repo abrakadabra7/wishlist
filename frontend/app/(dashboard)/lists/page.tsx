@@ -128,8 +128,8 @@ export default function ListsPage() {
       <div className="flex flex-col gap-4 mb-6 relative z-10">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <h1 className="text-2xl font-semibold text-surface-900">{t("lists.myLists")}</h1>
-            <p className="text-sm text-surface-500 mt-0.5">{t("lists.subtitle")}</p>
+            <h1 className="text-2xl font-semibold text-surface-900 dark:text-surface-100 theme-transition">{t("lists.myLists")}</h1>
+            <p className="text-sm text-surface-500 dark:text-surface-400 mt-0.5 theme-transition">{t("lists.subtitle")}</p>
           </div>
           <Link href="/lists/new" className="shrink-0">
             <Button className="shadow-soft hover:shadow-card-hover">
@@ -140,20 +140,20 @@ export default function ListsPage() {
         </div>
 
         {totalLists > 0 && (
-          <Card className="bg-gradient-to-r from-brand-50/80 via-amber-50/70 to-surface-50/80 border border-surface-100/60 shadow-sm">
-            <div className="flex flex-wrap items-center gap-4 sm:gap-8 text-xs sm:text-sm text-surface-600">
+          <Card className="bg-gradient-to-r from-brand-50/80 via-amber-50/70 to-surface-50/80 dark:from-brand-950/40 dark:via-surface-800 dark:to-surface-800 border border-surface-100/60 dark:border-surface-600/60 shadow-sm theme-transition">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-8 text-xs sm:text-sm text-surface-600 dark:text-surface-300 theme-transition">
               <div className="flex items-center gap-2">
                 <div className="h-8 w-8 rounded-full bg-white/80 shadow-sm flex items-center justify-center text-base">
                   🎁
                 </div>
                 <div>
-                  <p className="text-[11px] uppercase tracking-wide text-surface-400">
+                  <p className="text-[11px] uppercase tracking-wide text-surface-400 dark:text-surface-400 theme-transition">
                     {t("lists.statsOwned")}
                   </p>
-                  <p className="text-sm font-semibold text-surface-900">
+                  <p className="text-sm font-semibold text-surface-900 dark:text-surface-100 theme-transition">
                     {ownedCount}
                     {sharedCount > 0 && (
-                      <span className="ml-1 text-xs font-normal text-surface-500">
+                      <span className="ml-1 text-xs font-normal text-surface-500 dark:text-surface-400 theme-transition">
                         · {t("lists.statsShared")}: {sharedCount}
                       </span>
                     )}
@@ -166,10 +166,10 @@ export default function ListsPage() {
                   📦
                 </div>
                 <div>
-                  <p className="text-[11px] uppercase tracking-wide text-surface-400">
+                  <p className="text-[11px] uppercase tracking-wide text-surface-400 dark:text-surface-400 theme-transition">
                     {t("lists.statsProgress")}
                   </p>
-                  <p className="text-sm font-semibold text-surface-900 tabular-nums">
+                  <p className="text-sm font-semibold text-surface-900 dark:text-surface-100 tabular-nums theme-transition">
                     {itemsPurchased}/{itemsTotal}
                   </p>
                 </div>
@@ -195,10 +195,10 @@ export default function ListsPage() {
         <div className="space-y-8 relative z-10">
           {showSections && owned.length > 0 && (
             <section>
-              <h2 className="text-sm font-medium text-surface-500 mb-3">
+              <h2 className="text-sm font-medium text-surface-500 dark:text-surface-400 mb-3 theme-transition">
                 {t("lists.yourLists")}
                 {reorderLoading && (
-                  <span className="ml-2 text-xs text-surface-400">{t("lists.updatingOrder")}</span>
+                  <span className="ml-2 text-xs text-surface-400 dark:text-surface-400 theme-transition">{t("lists.updatingOrder")}</span>
                 )}
               </h2>
               <DndContext sensors={sensors} collisionDetection={rectIntersection} onDragEnd={handleDragEnd}>
@@ -219,7 +219,7 @@ export default function ListsPage() {
           )}
           {showSections && shared.length > 0 && (
             <section>
-              <h2 className="text-sm font-medium text-surface-500 mb-3">{t("lists.sharedWithYou")}</h2>
+              <h2 className="text-sm font-medium text-surface-500 dark:text-surface-400 mb-3 theme-transition">{t("lists.sharedWithYou")}</h2>
               <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {shared.map((list) => (
                   <li key={list.id}>

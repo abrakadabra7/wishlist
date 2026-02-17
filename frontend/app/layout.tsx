@@ -20,8 +20,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={outfit.variable}>
-      <body className="min-h-screen antialiased">
+    <html lang="en" className={outfit.variable} suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var v=localStorage.getItem('wishlist-theme');if(v==='dark'||(!v&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');else document.documentElement.classList.remove('dark');})();`,
+          }}
+        />
+      </head>
+      <body className="min-h-screen antialiased bg-surface-50 text-surface-900 dark:bg-surface-900 dark:text-surface-100 transition-colors duration-[400ms] ease-in-out">
         <Providers>
           <SetHtmlLang />
           {children}

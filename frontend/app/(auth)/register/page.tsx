@@ -38,7 +38,7 @@ export default function RegisterPage() {
 
   return (
     <Card className="shadow-card-hover border-surface-200/60">
-      <h1 className="text-2xl font-bold text-surface-900 mb-6 tracking-tight">{t("auth.signUp")}</h1>
+      <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100 mb-6 tracking-tight theme-transition">{t("auth.signUp")}</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <Input
           label={t("auth.email")}
@@ -74,7 +74,7 @@ export default function RegisterPage() {
           {t("auth.createAccount")}
         </Button>
       </form>
-      <p className="mt-4 text-center text-sm text-surface-500">
+      <p className="mt-4 text-center text-sm text-surface-500 dark:text-surface-400 theme-transition">
         {t("auth.haveAccount")}{" "}
         <Link href="/login" className="text-brand-600 hover:underline">
           {t("auth.logIn")}

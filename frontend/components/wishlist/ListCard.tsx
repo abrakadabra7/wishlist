@@ -48,17 +48,17 @@ export default function ListCard({
           <div className="pointer-events-none absolute inset-x-0 -top-10 h-20 bg-gradient-to-br from-brand-50/60 via-transparent to-amber-50/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3 min-h-[2.25rem] relative">
             <div className="flex items-center gap-2 min-w-0 flex-1 order-1 sm:order-none">
-              <div className="h-8 w-8 rounded-xl bg-surface-100 flex items-center justify-center text-sm text-brand-500 shrink-0">
+              <div className="h-8 w-8 rounded-xl bg-surface-100 dark:bg-surface-700 flex items-center justify-center text-sm text-brand-500 dark:text-brand-400 shrink-0 theme-transition">
                 🎁
               </div>
-              <h2 className="font-semibold text-surface-900 truncate">{list.title}</h2>
+              <h2 className="font-semibold text-surface-900 dark:text-surface-100 truncate theme-transition">{list.title}</h2>
             </div>
             {isOwner ? (
               <div className="flex items-center gap-1.5 shrink-0 order-2 sm:order-none" onClick={(e) => e.stopPropagation()}>
                 <Link
                   href={`/lists/${list.id}/edit`}
                   onClick={(e) => e.stopPropagation()}
-                  className="text-xs font-medium text-surface-600 hover:text-brand-600 bg-surface-100 hover:bg-brand-50 px-2.5 py-1.5 rounded-lg transition-colors whitespace-nowrap"
+                  className="text-xs font-medium text-surface-600 dark:text-surface-300 hover:text-brand-600 dark:hover:text-brand-400 bg-surface-100 dark:bg-surface-700 hover:bg-brand-50 dark:hover:bg-brand-950/50 px-2.5 py-1.5 rounded-lg transition-colors whitespace-nowrap theme-transition"
                 >
                   {t("common.edit")}
                 </Link>
@@ -75,20 +75,20 @@ export default function ListCard({
                 </button>
               </div>
             ) : showSharedBadge ? (
-              <span className="shrink-0 text-xs font-medium text-surface-500 bg-surface-100 px-2 py-0.5 rounded-full order-2 sm:order-none">
+              <span className="shrink-0 text-xs font-medium text-surface-500 dark:text-surface-400 bg-surface-100 dark:bg-surface-700 px-2 py-0.5 rounded-full order-2 sm:order-none theme-transition">
                 {t("lists.shared")}
               </span>
             ) : null}
           </div>
           {list.description && (
-            <p className="mt-1 text-sm text-surface-500 line-clamp-2">
+            <p className="mt-1 text-sm text-surface-500 dark:text-surface-400 line-clamp-2 theme-transition">
               {list.description}
             </p>
           )}
           <div className="mt-3 flex flex-col gap-1.5">
             {total > 0 && (
               <div className="flex items-center gap-2">
-                <div className="flex-1 h-2 rounded-full bg-surface-200 overflow-hidden">
+                <div className="flex-1 h-2 rounded-full bg-surface-200 dark:bg-surface-600 overflow-hidden theme-transition">
                   <div
                     className={`h-full rounded-full transition-all duration-300 ${
                       pct >= 100 ? "bg-emerald-500" : pct > 0 ? "bg-amber-500" : "bg-surface-300"
@@ -96,13 +96,13 @@ export default function ListCard({
                     style={{ width: `${Math.min(pct, 100)}%` }}
                   />
                 </div>
-                <span className="text-xs font-medium text-surface-600 tabular-nums">
+                <span className="text-xs font-medium text-surface-600 dark:text-surface-300 tabular-nums theme-transition">
                   {done}/{total}
                 </span>
               </div>
             )}
             {dueStr && (
-              <p className="text-xs text-surface-500">
+              <p className="text-xs text-surface-500 dark:text-surface-400 theme-transition">
                 {t("lists.due")}: {dueStr}
               </p>
             )}

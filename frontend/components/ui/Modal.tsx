@@ -56,15 +56,15 @@ export default function Modal({
       />
       <div
         className={`
-          relative w-full ${sizeClasses[size]} rounded-2xl bg-white shadow-soft
-          border border-surface-200/80 overflow-hidden
+          relative w-full ${sizeClasses[size]} rounded-2xl bg-white dark:bg-surface-800 shadow-soft
+          border border-surface-200/80 dark:border-surface-600/80 overflow-hidden theme-transition
           motion-safe:animate-[fadeIn_0.2s_ease-out]
         `}
         onClick={(e) => e.stopPropagation()}
       >
         {title && (
-          <div className="px-6 py-4 border-b border-surface-100">
-            <h2 id="modal-title" className="text-lg font-semibold text-surface-900">
+          <div className="px-6 py-4 border-b border-surface-100 dark:border-surface-700 theme-transition">
+            <h2 id="modal-title" className="text-lg font-semibold text-surface-900 dark:text-surface-100 theme-transition">
               {title}
             </h2>
           </div>

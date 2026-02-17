@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import Button from "@/components/ui/Button";
 import Loader from "@/components/ui/Loader";
 import Logo from "@/components/layout/Logo";
@@ -13,6 +14,7 @@ export default function HomePage() {
   const router = useRouter();
   const { user, loading } = useAuth();
   const { t, locale, setLocale } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     if (!loading && user) router.replace("/lists");
@@ -20,7 +22,7 @@ export default function HomePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-hero">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-hero dark:bg-gradient-hero-dark">
         <Loader />
       </div>
     );
@@ -28,24 +30,40 @@ export default function HomePage() {
 
   if (user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-hero">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-hero dark:bg-gradient-hero-dark">
         <Loader />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-hero">
-      <header className="border-b border-surface-200/60 bg-white/70 backdrop-blur-xl sticky top-0 z-30">
+    <div className="min-h-screen flex flex-col bg-gradient-hero dark:bg-gradient-hero-dark theme-transition">
+      <header className="border-b border-surface-200/60 dark:border-surface-700/60 bg-white/70 dark:bg-surface-900/90 backdrop-blur-xl sticky top-0 z-30 theme-transition">
         <div className="max-w-4xl mx-auto px-3 py-3 flex flex-wrap items-center justify-between gap-2 sm:flex-nowrap sm:px-4 sm:py-4 sm:gap-0">
           <Logo href="/" size="lg" className="shrink-0" />
           <div className="flex flex-wrap items-center justify-end gap-1.5 sm:gap-3">
-            <div className="flex items-center gap-0.5 rounded-lg border border-surface-200 bg-surface-50/80 p-0.5 sm:gap-1">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="p-2 rounded-lg text-surface-600 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors theme-transition"
+              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {theme === "dark" ? (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                </svg>
+              )}
+            </button>
+            <div className="flex items-center gap-0.5 rounded-lg border border-surface-200 dark:border-surface-600 bg-surface-50/80 dark:bg-surface-800/80 p-0.5 sm:gap-1">
               <button
                 type="button"
                 onClick={() => setLocale("en")}
                 className={`px-2 py-0.5 text-xs font-medium rounded-md transition-colors sm:px-2.5 sm:py-1 ${
-                  locale === "en" ? "bg-white text-surface-900 shadow-sm" : "text-surface-500 hover:text-surface-700"
+                  locale === "en" ? "bg-white dark:bg-surface-700 text-surface-900 dark:text-surface-100 shadow-sm" : "text-surface-500 dark:text-surface-300 hover:text-surface-700 dark:hover:text-surface-200"
                 }`}
               >
                 EN
@@ -54,7 +72,7 @@ export default function HomePage() {
                 type="button"
                 onClick={() => setLocale("ru")}
                 className={`px-2 py-0.5 text-xs font-medium rounded-md transition-colors sm:px-2.5 sm:py-1 ${
-                  locale === "ru" ? "bg-white text-surface-900 shadow-sm" : "text-surface-500 hover:text-surface-700"
+                  locale === "ru" ? "bg-white dark:bg-surface-700 text-surface-900 dark:text-surface-100 shadow-sm" : "text-surface-500 dark:text-surface-300 hover:text-surface-700 dark:hover:text-surface-200"
                 }`}
               >
                 RU
@@ -73,21 +91,21 @@ export default function HomePage() {
       </header>
       <main className="flex-1 flex flex-col items-center px-4 py-12 sm:py-16 lg:py-20 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-10 -left-10 w-64 h-64 sm:w-80 sm:h-80 bg-brand-200/30 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-0 w-80 h-80 sm:w-96 sm:h-96 bg-brand-100/40 rounded-full blur-3xl" />
-          <div className="absolute top-1/3 right-1/3 w-40 h-40 bg-amber-100/40 rounded-full blur-3xl" />
+          <div className="absolute -top-10 -left-10 w-64 h-64 sm:w-80 sm:h-80 bg-brand-200/30 dark:bg-brand-900/25 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-80 h-80 sm:w-96 sm:h-96 bg-brand-100/40 dark:bg-brand-950/30 rounded-full blur-3xl" />
+          <div className="absolute top-1/3 right-1/3 w-40 h-40 bg-amber-100/40 dark:bg-amber-900/20 rounded-full blur-3xl" />
         </div>
         <div className="max-w-5xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative z-10">
           {/* Left column: text + actions */}
           <section className="flex-1 space-y-5 text-center lg:text-left animate-fade-in-up">
-            <div className="inline-flex items-center justify-center rounded-full bg-white/80 border border-surface-200/70 px-3 py-1 text-xs sm:text-sm text-surface-600 shadow-sm mb-2">
+            <div className="inline-flex items-center justify-center rounded-full bg-white/80 dark:bg-surface-800/80 border border-surface-200/70 dark:border-surface-600/70 px-3 py-1 text-xs sm:text-sm text-surface-600 dark:text-surface-300 shadow-sm mb-2 theme-transition">
               <span className="mr-1.5 text-base">🎁</span>
               <span>{t("app.tagline")}</span>
             </div>
-            <h1 className="text-4xl font-bold text-surface-900 sm:text-5xl lg:text-6xl tracking-tight leading-tight">
+            <h1 className="text-4xl font-bold text-surface-900 dark:text-surface-100 sm:text-5xl lg:text-6xl tracking-tight leading-tight theme-transition">
               {t("app.tagline")}
             </h1>
-            <p className="text-surface-600 text-lg sm:text-xl max-w-md mx-auto lg:mx-0 leading-relaxed">
+            <p className="text-surface-600 dark:text-surface-300 text-lg sm:text-xl max-w-md mx-auto lg:mx-0 leading-relaxed theme-transition">
               {t("app.taglineDesc")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center pt-1">
@@ -107,7 +125,7 @@ export default function HomePage() {
                 </Button>
               </Link>
             </div>
-            <p className="text-xs sm:text-sm text-surface-500 pt-1">
+            <p className="text-xs sm:text-sm text-surface-500 dark:text-surface-400 pt-1 theme-transition">
               {locale === "ru"
                 ? "Создай вишлист за 30 секунд — друзья увидят, что забронировано и на что скинуться."
                 : "Create a wishlist in seconds so friends see what’s reserved and what they can chip in for."}
@@ -126,10 +144,10 @@ export default function HomePage() {
                   <div className="flex-1 space-y-1.5">
                     <div className="flex items-center justify-between gap-2">
                       <div>
-                        <p className="text-xs font-medium uppercase tracking-wide text-surface-400">
+                        <p className="text-xs font-medium uppercase tracking-wide text-surface-400 dark:text-surface-400 theme-transition">
                           Wishlist · Пример
                         </p>
-                        <h2 className="text-base sm:text-lg font-semibold text-surface-900">
+                        <h2 className="text-base sm:text-lg font-semibold text-surface-900 dark:text-surface-100 theme-transition">
                           AirPods Pro
                         </h2>
                       </div>
@@ -137,7 +155,7 @@ export default function HomePage() {
                         {locale === "ru" ? "Зарезервировано" : "Reserved"}
                       </span>
                     </div>
-                    <p className="text-xs text-surface-500">
+                    <p className="text-xs text-surface-500 dark:text-surface-400 theme-transition">
                       {locale === "ru"
                         ? "Друзья уже забронировали этот подарок."
                         : "Friends have already reserved this gift for you."}
@@ -146,7 +164,7 @@ export default function HomePage() {
                       <div className="h-2 rounded-full bg-surface-100 overflow-hidden">
                         <div className="h-full w-3/4 rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500" />
                       </div>
-                      <div className="flex justify-between text-[11px] text-surface-500">
+                      <div className="flex justify-between text-[11px] text-surface-500 dark:text-surface-400 theme-transition">
                         <span>{locale === "ru" ? "Оплачено" : "Paid"} · 28 000 ₽</span>
                         <span>42 000 ₽</span>
                       </div>
@@ -162,8 +180,8 @@ export default function HomePage() {
                     📱
                   </div>
                   <div className="flex-1">
-                    <p className="text-xs font-medium text-surface-900">iPhone 13</p>
-                    <p className="text-[11px] text-surface-500">80 000 ₽</p>
+                    <p className="text-xs font-medium text-surface-900 dark:text-surface-100 theme-transition">iPhone 13</p>
+                    <p className="text-[11px] text-surface-500 dark:text-surface-400 theme-transition">80 000 ₽</p>
                   </div>
                 </div>
                 <div className="h-1.5 rounded-full bg-surface-100 overflow-hidden">
@@ -173,7 +191,7 @@ export default function HomePage() {
                   <span className="inline-flex-1 inline-flex justify-center items-center rounded-full bg-brand-500 text-white text-[10px] px-2 py-1">
                     {locale === "ru" ? "Скинуться" : "Chip in"}
                   </span>
-                  <span className="inline-flex justify-center items-center rounded-full bg-surface-100 text-surface-700 text-[10px] px-2 py-1">
+                  <span className="inline-flex justify-center items-center rounded-full bg-surface-100 dark:bg-surface-700 text-surface-700 dark:text-surface-300 text-[10px] px-2 py-1 theme-transition">
                     {locale === "ru" ? "Забронировать" : "Reserve"}
                   </span>
                 </div>
@@ -181,7 +199,7 @@ export default function HomePage() {
 
               {/* How it works mini-steps */}
               <div className="hidden sm:flex hero-card-steps absolute -left-6 -bottom-14 bg-white/90 border border-surface-100 rounded-2xl shadow-lg px-3 py-2.5 items-center gap-3">
-                <div className="flex flex-col gap-1 text-[11px] text-surface-600">
+                <div className="flex flex-col gap-1 text-[11px] text-surface-600 dark:text-surface-300 theme-transition">
                   <div className="flex items-center gap-1.5">
                     <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-brand-500 text-white text-[9px]">
                       1

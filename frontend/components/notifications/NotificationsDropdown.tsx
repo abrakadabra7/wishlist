@@ -109,7 +109,7 @@ export default function NotificationsDropdown() {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="relative p-2 rounded-lg text-surface-600 hover:bg-surface-100 transition-colors"
+        className="relative p-2 rounded-lg text-surface-600 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors theme-transition"
         aria-label={t("nav.notifications")}
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -123,35 +123,35 @@ export default function NotificationsDropdown() {
         )}
       </button>
       {open && (
-        <div className="absolute right-0 top-full mt-1 w-[calc(100vw-2rem)] max-w-80 sm:max-w-80 max-h-[70vh] overflow-auto bg-white rounded-xl shadow-lg border border-surface-200 py-2 z-50">
-          <div className="flex items-center justify-between px-3 pb-2 border-b border-surface-100">
-            <span className="font-medium text-surface-900">{t("nav.notifications")}</span>
+        <div className="absolute right-0 top-full mt-1 w-[calc(100vw-2rem)] max-w-80 sm:max-w-80 max-h-[70vh] overflow-auto bg-white dark:bg-surface-800 rounded-xl shadow-lg border border-surface-200 dark:border-surface-600 py-2 z-50 theme-transition">
+          <div className="flex items-center justify-between px-3 pb-2 border-b border-surface-100 dark:border-surface-700">
+            <span className="font-medium text-surface-900 dark:text-surface-100">{t("nav.notifications")}</span>
             {unreadCount > 0 && (
               <button
                 type="button"
                 onClick={handleMarkAllRead}
-                className="text-xs text-brand-600 hover:underline"
+                className="text-xs text-brand-600 dark:text-brand-400 hover:underline"
               >
                 {t("nav.markAllRead")}
               </button>
             )}
           </div>
           {loading ? (
-            <p className="px-3 py-4 text-sm text-surface-500">{t("nav.loading")}</p>
+            <p className="px-3 py-4 text-sm text-surface-500 dark:text-surface-300">{t("nav.loading")}</p>
           ) : list.length === 0 ? (
-            <p className="px-3 py-4 text-sm text-surface-500">{t("nav.noNotifications")}</p>
+            <p className="px-3 py-4 text-sm text-surface-500 dark:text-surface-300">{t("nav.noNotifications")}</p>
           ) : (
-            <ul className="divide-y divide-surface-100">
+            <ul className="divide-y divide-surface-100 dark:divide-surface-700">
               {list.map((n) => {
                 const { title, body } = translatedNotification(n);
                 return (
-                <li key={n.id} className={`px-3 py-2.5 ${!n.read_at ? "bg-brand-50/50" : ""}`}>
+                <li key={n.id} className={`px-3 py-2.5 ${!n.read_at ? "bg-brand-50/50 dark:bg-brand-950/40" : ""}`}>
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0 flex-1">
-                      <p className="text-sm font-medium text-surface-900">{title}</p>
-                      <p className="text-xs text-surface-600 mt-0.5">{body}</p>
+                      <p className="text-sm font-medium text-surface-900 dark:text-surface-100">{title}</p>
+                      <p className="text-xs text-surface-600 dark:text-surface-300 mt-0.5">{body}</p>
                       {n.created_at && (
-                        <p className="text-xs text-surface-400 mt-1" title={new Date(n.created_at).toLocaleString()}>
+                        <p className="text-xs text-surface-400 dark:text-surface-400 mt-1" title={new Date(n.created_at).toLocaleString()}>
                           {formatTime(n.created_at)}
                         </p>
                       )}
@@ -160,7 +160,7 @@ export default function NotificationsDropdown() {
                       <button
                         type="button"
                         onClick={() => handleMarkRead(n.id)}
-                        className="shrink-0 text-xs text-brand-600 hover:underline"
+                        className="shrink-0 text-xs text-brand-600 dark:text-brand-400 hover:underline"
                       >
                         {t("nav.read")}
                       </button>

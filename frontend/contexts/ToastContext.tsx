@@ -72,10 +72,10 @@ function ToastList() {
             flex items-center justify-between gap-3
             ${
               t.type === "success"
-                ? "bg-emerald-50 border-emerald-200 text-emerald-900"
+                ? "bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-800 text-emerald-900 dark:text-emerald-100"
                 : t.type === "error"
-                  ? "bg-red-50 border-red-200 text-red-900"
-                  : "bg-surface-50 border-surface-200 text-surface-900"
+                  ? "bg-red-50 dark:bg-red-950/50 border-red-200 dark:border-red-800 text-red-900 dark:text-red-100"
+                  : "bg-surface-50 dark:bg-surface-800 border-surface-200 dark:border-surface-600 text-surface-900 dark:text-surface-100"
             }
           `}
         >
@@ -83,7 +83,7 @@ function ToastList() {
           <button
             type="button"
             onClick={() => removeToast(t.id)}
-            className="shrink-0 text-surface-500 hover:text-surface-700 p-1 -m-1 rounded"
+            className="shrink-0 text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300 p-1 -m-1 rounded"
             aria-label="Dismiss"
           >
             <span className="sr-only">Dismiss</span>
