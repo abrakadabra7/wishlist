@@ -164,7 +164,7 @@ export default function ListDetailPage() {
   if (loadError) {
     return (
       <div className="space-y-4">
-        <Link href="/lists" className="text-sm text-surface-500 hover:text-brand-600 inline-block">
+        <Link href="/lists" className="text-sm text-surface-500 dark:text-surface-400 hover:text-brand-600 dark:hover:text-brand-400 theme-transition inline-block">
           {t("common.backToLists")}
         </Link>
         <Card className="py-10 text-center">
@@ -186,7 +186,7 @@ export default function ListDetailPage() {
   if (loading || !list) {
     return (
       <div className="space-y-6">
-        <div className="h-4 w-24 rounded-lg bg-surface-200 animate-pulse" />
+        <div className="h-4 w-24 rounded-lg bg-surface-200 dark:bg-surface-600 animate-pulse theme-transition" />
         <ListDetailSkeleton />
       </div>
     );
@@ -201,16 +201,16 @@ export default function ListDetailPage() {
         <div>
           <Link
             href="/lists"
-            className="text-sm text-surface-500 hover:text-brand-600 mb-1 inline-block"
+            className="text-sm text-surface-500 dark:text-surface-400 hover:text-brand-600 dark:hover:text-brand-400 theme-transition mb-1 inline-block"
           >
             {t("common.backToLists")}
           </Link>
-          <h1 className="text-2xl font-semibold text-surface-900">{list.title}</h1>
+          <h1 className="text-2xl font-semibold text-surface-900 dark:text-surface-100 theme-transition">{list.title}</h1>
           {list.description && (
-            <p className="mt-1 text-surface-500">{list.description}</p>
+            <p className="mt-1 text-surface-500 dark:text-surface-400 theme-transition">{list.description}</p>
           )}
           {(connected || reconnecting) && (
-            <span className={`inline-flex items-center gap-1.5 mt-2 text-xs ${reconnecting ? "text-amber-600" : "text-emerald-600"}`}>
+            <span className={`inline-flex items-center gap-1.5 mt-2 text-xs theme-transition ${reconnecting ? "text-amber-600 dark:text-amber-400" : "text-emerald-600 dark:text-emerald-400"}`}>
               <span className={`w-2 h-2 rounded-full ${reconnecting ? "bg-amber-500" : "bg-emerald-500 animate-pulse"}`} />
               {reconnecting ? t("common.reconnecting") : t("common.live")}
             </span>
@@ -270,27 +270,27 @@ export default function ListDetailPage() {
 
       {isOwner && suggestions.length > 0 && (
         <Card padding="md">
-          <h2 className="text-lg font-medium text-surface-800 mb-2">{t("listDetail.suggestionsFromVisitors")}</h2>
-          <p className="text-sm text-surface-500 mb-3">{t("listDetail.suggestionsHint")}</p>
+          <h2 className="text-lg font-medium text-surface-800 dark:text-surface-200 mb-2 theme-transition">{t("listDetail.suggestionsFromVisitors")}</h2>
+          <p className="text-sm text-surface-500 dark:text-surface-400 mb-3 theme-transition">{t("listDetail.suggestionsHint")}</p>
           <ul className="space-y-3">
             {suggestions.map((s) => (
               <li
                 key={s.id}
-                className="flex flex-wrap items-start justify-between gap-2 p-3 rounded-xl bg-surface-50 border border-surface-200"
+                className="flex flex-wrap items-start justify-between gap-2 p-3 rounded-xl bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-600 theme-transition"
               >
                 <div className="min-w-0 flex-1">
-                  <p className="font-medium text-surface-900">{s.title}</p>
+                  <p className="font-medium text-surface-900 dark:text-surface-100 theme-transition">{s.title}</p>
                   {s.link_url && (
                     <a
                       href={s.link_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-brand-600 hover:underline truncate block"
+                      className="text-sm text-brand-600 dark:text-brand-400 hover:underline truncate block theme-transition"
                     >
                       {s.link_url}
                     </a>
                   )}
-                  {s.message && <p className="text-sm text-surface-500 mt-1">{s.message}</p>}
+                  {s.message && <p className="text-sm text-surface-500 dark:text-surface-400 mt-1 theme-transition">{s.message}</p>}
                 </div>
                 <div className="flex gap-2 shrink-0">
                   <Button
@@ -306,7 +306,7 @@ export default function ListDetailPage() {
                     variant="ghost"
                     loading={suggestionActionId === s.id}
                     onClick={() => handleRejectSuggestion(s.id)}
-                    className="text-surface-500 hover:text-red-600"
+                    className="text-surface-500 dark:text-surface-400 hover:text-red-600 dark:hover:text-red-400 theme-transition"
                   >
                     {t("common.reject")}
                   </Button>
@@ -318,7 +318,7 @@ export default function ListDetailPage() {
       )}
 
       <div className="space-y-3">
-        <h2 className="text-lg font-medium text-surface-800">{t("listDetail.items")}</h2>
+        <h2 className="text-lg font-medium text-surface-800 dark:text-surface-200 theme-transition">{t("listDetail.items")}</h2>
         {items.length === 0 ? (
           <Card>
             <EmptyState

@@ -29,7 +29,7 @@ export default function ConfirmModal({
   return (
     <Modal open={open} onClose={onClose} title={title} size="sm">
       {description && (
-        <p className="text-surface-600 text-sm mb-5">{description}</p>
+        <p className="text-surface-600 dark:text-surface-300 text-sm mb-5 theme-transition">{description}</p>
       )}
       <div className="flex gap-3 justify-end">
         <Button variant="ghost" onClick={onClose} disabled={loading}>

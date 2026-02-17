@@ -87,7 +87,7 @@ export default function ItemForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 p-4 rounded-xl bg-surface-50/80 border border-surface-200">
+    <form onSubmit={handleSubmit} className="space-y-4 p-4 rounded-xl bg-surface-50/80 dark:bg-surface-800/80 border border-surface-200 dark:border-surface-600 theme-transition">
       <div>
         <Input
           label={t("items.productLink")}
@@ -147,13 +147,13 @@ export default function ItemForm({
           />
         </div>
         <div className="w-32 shrink-0">
-          <label className="block text-sm font-medium text-surface-700 mb-1">
+          <label className="block text-sm font-medium text-surface-700 dark:text-surface-200 mb-1 theme-transition">
             {t("items.currency")}
           </label>
           <select
             value={currency}
             onChange={(e) => setCurrency(e.target.value)}
-            className="w-full px-4 py-2.5 rounded-xl border border-surface-200 bg-white/80 text-surface-900 focus:ring-2 focus:ring-brand-500/25 focus:border-brand-400 transition-colors duration-200"
+            className="w-full px-4 py-2.5 rounded-xl border border-surface-200 dark:border-surface-600 bg-white/80 dark:bg-surface-800/80 text-surface-900 dark:text-surface-100 focus:ring-2 focus:ring-brand-500/25 focus:border-brand-400 theme-transition"
           >
             {CURRENCIES.map((c) => (
               <option key={c.code} value={c.code}>

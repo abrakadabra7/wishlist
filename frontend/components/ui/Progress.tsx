@@ -34,16 +34,16 @@ export default function Progress({
       {(label || showCount) && (
         <div className="flex justify-between items-center mb-1.5">
           {label && (
-            <span className="text-sm font-medium text-surface-600">{label}</span>
+            <span className="text-sm font-medium text-surface-600 dark:text-surface-300 theme-transition">{label}</span>
           )}
           {showCount && (
-            <span className="text-sm text-surface-500">
+            <span className="text-sm text-surface-500 dark:text-surface-400 theme-transition">
               {value} / {max}
             </span>
           )}
         </div>
       )}
-      <div className="h-2.5 w-full rounded-full bg-surface-200 overflow-hidden flex">
+      <div className="h-2.5 w-full rounded-full bg-surface-200 dark:bg-surface-600 overflow-hidden flex theme-transition">
         {hasSegments ? (
           <>
             {paidPct > 0 && (
@@ -69,7 +69,7 @@ export default function Progress({
         )}
       </div>
       {hasSegments && (paid > 0 || pledged > 0) && (
-        <div className="flex gap-3 mt-1 text-xs text-surface-500">
+        <div className="flex gap-3 mt-1 text-xs text-surface-500 dark:text-surface-400 theme-transition">
           {paid > 0 && (
             <span className="flex items-center gap-1">
               <span className="w-2 h-2 rounded-full bg-emerald-500" />

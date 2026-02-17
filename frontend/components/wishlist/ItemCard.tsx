@@ -153,28 +153,28 @@ export default function ItemCard({
         <div className="min-w-0 flex-1">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
             <div className="min-w-0 flex-1">
-              <h3 className="font-medium text-surface-900 break-words">
+              <h3 className="font-medium text-surface-900 dark:text-surface-100 break-words theme-transition">
                 {item.title}
               </h3>
               {item.description && (
-                <p className="mt-1 text-sm text-surface-500">{item.description}</p>
+                <p className="mt-1 text-sm text-surface-500 dark:text-surface-400 theme-transition">{item.description}</p>
               )}
               {item.link_url && (
                 <a
                   href={item.link_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-2 inline-block text-sm text-brand-600 hover:underline truncate max-w-full"
+                  className="mt-2 inline-block text-sm text-brand-600 dark:text-brand-400 hover:underline truncate max-w-full theme-transition"
                 >
                   {item.link_url}
                 </a>
               )}
               {hasPrice && (
-                <p className="mt-1 text-sm text-surface-600">
+                <p className="mt-1 text-sm text-surface-600 dark:text-surface-300 theme-transition">
                   {priceNum.toFixed(2)}
-                  {item.currency && <span className="text-surface-500"> {item.currency}</span>}
+                  {item.currency && <span className="text-surface-500 dark:text-surface-400"> {item.currency}</span>}
                   {(pledged > 0 || paid > 0) && (
-                    <span className="text-surface-500">
+                    <span className="text-surface-500 dark:text-surface-400">
                       {" "}
                       {pledged > 0 && (
                         <>
@@ -197,7 +197,7 @@ export default function ItemCard({
             <div className="flex items-center gap-2 flex-shrink-0">
               <ReservationChip status={item.reservation_status} />
               {item.contributed_by_id && (
-                <span className="text-xs text-surface-400 bg-surface-100 px-2 py-0.5 rounded-full">
+                <span className="text-xs text-surface-400 dark:text-surface-400 bg-surface-100 dark:bg-surface-700 px-2 py-0.5 rounded-full theme-transition">
                   {t("items.gift")}
                 </span>
               )}
@@ -227,7 +227,7 @@ export default function ItemCard({
                   placeholder={t("items.amount")}
                   value={chipInAmount}
                   onChange={(e) => setChipInAmount(e.target.value)}
-                  className="w-24 rounded-lg border border-surface-200 bg-white px-2 py-1.5 text-sm text-surface-900 placeholder:text-surface-400 focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500"
+                  className="w-24 rounded-lg border border-surface-200 dark:border-surface-600 bg-white dark:bg-surface-800 px-2 py-1.5 text-sm text-surface-900 dark:text-surface-100 placeholder:text-surface-400 dark:placeholder:text-surface-500 focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 theme-transition"
                 />
                 <Button
                   size="sm"
@@ -260,7 +260,7 @@ export default function ItemCard({
         </div>
       </div>
       {canEdit && (
-        <div className="flex flex-wrap gap-2 pt-1 border-t border-surface-100">
+        <div className="flex flex-wrap gap-2 pt-1 border-t border-surface-100 dark:border-surface-700 theme-transition">
           {isAvailable && (
             <>
               <Button
@@ -308,7 +308,7 @@ export default function ItemCard({
               variant="ghost"
               loading={deleting}
               onClick={handleDeleteClick}
-              className="ml-auto text-surface-500 hover:text-red-600"
+              className="ml-auto text-surface-500 dark:text-surface-400 hover:text-red-600 dark:hover:text-red-400 theme-transition"
             >
               {t("common.remove")}
             </Button>

@@ -3,7 +3,7 @@
 export function Skeleton({ className = "" }: { className?: string }) {
   return (
     <div
-      className={`animate-pulse rounded-lg bg-surface-200 ${className}`}
+      className={`animate-pulse rounded-lg bg-surface-200 dark:bg-surface-600 theme-transition ${className}`}
       aria-hidden
     />
   );
@@ -11,7 +11,7 @@ export function Skeleton({ className = "" }: { className?: string }) {
 
 export function ListCardSkeleton() {
   return (
-    <div className="rounded-2xl bg-white border border-surface-200/80 p-6 shadow-card">
+    <div className="rounded-2xl bg-white dark:bg-surface-800 border border-surface-200/80 dark:border-surface-600/80 p-6 shadow-card theme-transition">
       <Skeleton className="h-5 w-3/4 mb-2" />
       <Skeleton className="h-4 w-full" />
       <Skeleton className="h-4 w-1/2 mt-2" />
